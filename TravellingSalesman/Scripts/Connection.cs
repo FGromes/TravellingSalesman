@@ -1,10 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Drawing;
 using System.Linq;
 using System.Text;
 using System.Text.Json.Serialization;
 using System.Threading.Tasks;
+using System.Windows;
 
 namespace TravellingSalesmanV2
 {
@@ -80,6 +80,13 @@ namespace TravellingSalesmanV2
             if (point == B)
                 return A;
             return null;
+        }
+
+        public void Delete()
+        {
+            all.Remove(this);
+            A.RemoveConnection(this);
+            B.RemoveConnection(this);
         }
     }
 }

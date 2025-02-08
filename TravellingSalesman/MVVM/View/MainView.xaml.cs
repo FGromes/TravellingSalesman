@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -12,6 +13,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using TravellingSalesman.MVVM.ViewModel;
 
 namespace TravellingSalesman.MVVM.View
 {
@@ -23,6 +25,16 @@ namespace TravellingSalesman.MVVM.View
         public MainView()
         {
             InitializeComponent();
+        }
+
+        void Image_MouseDown(object sender, MouseButtonEventArgs e)
+        {
+            ((MainViewModel)this.DataContext).OnImageMouseDown(sender, e);
+        }
+
+        private void Image_Drop(object sender, DragEventArgs e)
+        {
+            ((MainViewModel) this.DataContext).OnDropMapPoint(sender, e);
         }
     }
 }

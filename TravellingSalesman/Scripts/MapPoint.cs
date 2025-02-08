@@ -1,10 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Drawing;
 using System.Linq;
 using System.Text;
 using System.Text.Json.Serialization;
 using System.Threading.Tasks;
+using System.Windows;
 using TravellingSalesman.Scripts;
 
 namespace TravellingSalesmanV2
@@ -18,9 +18,13 @@ namespace TravellingSalesmanV2
         [JsonInclude]
         public List<Connection> Connections { get; private set; }
 
+        // UI ListView Multiselect
+        public bool IsSelected { get; set; }
+
         [JsonConstructor]
         private MapPoint()
         {
+            IsSelected = false;
             Connections = new List<Connection>();
         }
         public MapPoint(string name, Point location) : this()

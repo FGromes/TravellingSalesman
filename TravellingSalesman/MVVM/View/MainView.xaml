@@ -16,67 +16,102 @@
             <ColumnDefinition Width="*"/>
             <ColumnDefinition Width="auto"/>
         </Grid.ColumnDefinitions>
-        <StackPanel Grid.Column="0" 
-                    Orientation="Vertical">
-            <Grid>
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition/>
-                    <ColumnDefinition/>
-                </Grid.ColumnDefinitions>
-                <Grid.RowDefinitions>
-                    <RowDefinition/>
-                    <RowDefinition/>
-                    <RowDefinition/>
-                </Grid.RowDefinitions>
+        <Grid Grid.Column="0">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition/>
+                <ColumnDefinition/>
+            </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="auto"/>
+                <RowDefinition Height="auto"/>
+                <RowDefinition Height="auto"/>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="auto"/>
+                <RowDefinition Height="auto"/>
+            </Grid.RowDefinitions>
 
 
-                <!-- Left Side ===== Grid Row 0 -->
-                <Label Grid.Row="0" Grid.Column="0" 
-                       Content="Start:"/>
-                <ComboBox Grid.Row="0" Grid.Column="1" 
+            <!-- Grid Row 0 -->
+            <Label Grid.Row="0" Grid.Column="0" 
+                       Content="Start:" 
+                       VerticalAlignment="Center"/>
+            <ComboBox Grid.Row="0" Grid.Column="1" 
                           Width="100"
                           ItemsSource="{Binding MapPoints}"
                           DisplayMemberPath="Name"
-                          SelectedItem="{Binding Start}">
-                </ComboBox>
+                          SelectedItem="{Binding Start}"
+                          Margin="5"/>
 
 
-                <!-- Left Side ===== Grid Row 1 -->
-                <Label Grid.Row="1" Grid.Column="0" 
-                       Content="End:"/>
-                <ComboBox Grid.Row="1" Grid.Column="1" 
+            <!-- Grid Row 1 -->
+            <Label Grid.Row="1" Grid.Column="0" 
+                       Content="End:"
+                       VerticalAlignment="Center"/>
+            <ComboBox Grid.Row="1" Grid.Column="1" 
                           Width="100"
                           ItemsSource="{Binding MapPoints}"
                           DisplayMemberPath="Name"
-                          SelectedItem="{Binding End}">
-                </ComboBox>
+                          SelectedItem="{Binding End}"
+                          Margin="5,0,5,5"/>
 
 
-                <!-- Left Side ===== Grid Row 2 -->
-                <Button Grid.Row="2" Grid.ColumnSpan="2" 
+            <!-- Grid Row 2 -->
+            <Button Grid.Row="2" Grid.ColumnSpan="2" 
                         Content="Calculate"
-                        Command="{Binding CalculateCmd}"/>
-            </Grid>
-        </StackPanel>
+                        Command="{Binding CalculateCmd}"
+                        Margin="5,0,5,5"/>
+            
+            <!-- Grid Row 4 -->
+            <Button Grid.Row="4" Grid.ColumnSpan="2"
+                    Content="Save Map"
+                    Command="{Binding SaveMapCmd}"
+                    Margin="5,0,5,5"/>
 
+            <!-- Grid Row 4 -->
+            <Button Grid.Row="5" Grid.ColumnSpan="2"
+                    Content="Default Map"
+                    Command="{Binding SaveMapCmd}"
+                    Margin="5"/>
+        </Grid>
 
-        <Image Grid.Column="1" 
-               Width="auto"/>
-
-
+        <Image Grid.Column="1"
+               Source="{Binding MapImage.Source}"
+               Stretch="None"
+               VerticalAlignment="Top"
+               HorizontalAlignment="Left"
+               AllowDrop="True"
+               MouseLeftButtonDown="Image_MouseDown"
+               Drop="Image_Drop"
+               />
+        
         <Grid Grid.Column="2">
             <Grid.RowDefinitions>
                 <RowDefinition Height="*"/>
                 <RowDefinition Height="auto"/>
             </Grid.RowDefinitions>
+            <!--ToDo: add rename function-->
             <ListView Grid.Row="0"
                       ItemsSource="{Binding MapPoints}" 
                       DisplayMemberPath="Name"
-                      SelectedItem="{Binding SelectedPoint}"/>
+                      SelectionMode="Multiple"
+                      Margin="5">
+
+                <ListView.ItemContainerStyle>
+                    <Style TargetType="{x:Type ListViewItem}">
+                        <Setter Property="IsSelected" Value="{Binding Path=IsSelected, Mode=TwoWay}" />
+                    </Style>
+                </ListView.ItemContainerStyle>
+            </ListView>
             <StackPanel Grid.Row="1">
                 <Button Content="New Point"
-                        Command="{Binding AddNewPoint}"/>
-                <Button Content="Delete Point"/>
+                        Command="{Binding AddNewPointCmd}"
+                        Margin="5,0,5,5"/>
+                <Button Content="Connect"
+                        Command="{Binding ConnectPointsCmd}"
+                        Margin="5,0,5,5"/>
+                <!--ToDo: add delete function-->
+                <Button Content="Delete Point"
+                        Margin="5,0,5,5"/>
             </StackPanel>
         </Grid>
     </Grid>

@@ -1,39 +1,42 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Drawing;
+using System.Collections.ObjectModel;
 using System.IO;
 using System.Linq;
 using System.Text;
 using System.Text.Json;
 using System.Text.Json.Serialization;
 using System.Threading.Tasks;
+using System.Windows;
 using TravellingSalesman.Scripts;
 
 namespace TravellingSalesmanV2
 {
-    internal class Map
+    internal class Map : ObservableObject
     {
-        protected List<MapPoint> points;
+        ObservableCollection<MapPoint> points;
         List<List<Route>> routes;
 
         Dictionary<MapPoint, Route?> startPunkte;
         [JsonInclude]
-        public virtual List<MapPoint> Points { get => points; protected set => points = value; }
+        public ObservableCollection<MapPoint> Points { get => points; set { points = value; OnPropertyChanged(); } }
         internal List<List<Route>> Routes { get => routes; }
         internal Dictionary<MapPoint, Route?> StartPunkte { get => startPunkte; }
 
         public Map()
         {
-            points = new List<MapPoint>();
+            points = new ObservableCollection<MapPoint>();
             routes = new List<List<Route>>();
             startPunkte = new Dictionary<MapPoint, Route?>();
+
+            //points.CollectionChanged += Collection
         }
         public Map(List<MapPoint> points) : this()
         {
-            this.points = points;
+            this.points = new ObservableCollection<MapPoint>(points);
         }
 
-        public virtual void CalculateIdealRoute(MapPoint start, MapPoint end)
+        public void CalculateIdealRoute(MapPoint start, MapPoint end)
         {
             startPunkte = new Dictionary<MapPoint, Route?>();
             startPunkte.Add(start, null);
@@ -79,7 +82,7 @@ namespace TravellingSalesmanV2
             }
         }
 
-        public virtual void MovePoint(MapPoint point, Point newPosition)
+        public void MovePoint(MapPoint point, Point newPosition)
         {
             point.MoveLocation(newPosition);
         }
