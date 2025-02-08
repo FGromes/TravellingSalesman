@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.Collections.Specialized;
 using System.IO;
 using System.Linq;
 using System.Text;
@@ -28,7 +29,7 @@ namespace TravellingSalesmanV2
             points = new ObservableCollection<MapPoint>();
             routes = new List<List<Route>>();
             startPunkte = new Dictionary<MapPoint, Route?>();
-
+            Points.CollectionChanged += new NotifyCollectionChangedEventHandler(CollectionPropertyChanged);
             //points.CollectionChanged += Collection
         }
         public Map(List<MapPoint> points) : this()

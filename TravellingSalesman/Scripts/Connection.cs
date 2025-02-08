@@ -88,5 +88,10 @@ namespace TravellingSalesmanV2
             A.RemoveConnection(this);
             B.RemoveConnection(this);
         }
+
+        public static void ResetAll()
+        {
+            all.Clear();
+        }
     }
 }

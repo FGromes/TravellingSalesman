@@ -69,6 +69,7 @@ namespace TravellingSalesman.MVVM.ViewModel
 
         private void OnClickLoadDefaultMap()
         {
+            Connection.ResetAll();
             List<MapPoint> defaultPoints = MapPoint.GetDefaultMapPoints();
             Map = new Map(defaultPoints);
             DrawMapImage();

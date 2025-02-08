@@ -70,7 +70,7 @@
             <!-- Grid Row 4 -->
             <Button Grid.Row="5" Grid.ColumnSpan="2"
                     Content="Default Map"
-                    Command="{Binding SaveMapCmd}"
+                    Command="{Binding LoadDefaultMapCmd}"
                     Margin="5"/>
         </Grid>
 
